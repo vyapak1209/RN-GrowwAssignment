@@ -1,19 +1,21 @@
 import { IMAGES_FETCHED, NEXT_URL, QUERY_CHANGED, NOT_FOUND, SPELL_CHECK } from './ActionsTypes'
 
-const CLIENT_ID = "1a2a8-0c74a-137fb-2e141-cdb3e-11751"
-const CLIENT_SECRET = "e4f92-f4911-63081-8a01b-2e3a0-208fb"
-
-const USERPWD = 'Basic ' + btoa(CLIENT_ID + ":" + CLIENT_SECRET)
+const USERPWD = "Basic MWEyYTgtMGM3NGEtMTM3ZmItMmUxNDEtY2RiM2UtMTE3NTE6ZTRmOTItZjQ5MTEtNjMwODEtOGEwMWItMmUzYTAtMjA4ZmI="
 
 export const fetchImages = (query, nextUrl, queryChanged) => {
+
+    console.log("alpha query ", query)
+    console.log("alpha nextUrl ", nextUrl)
+    console.log("alpha queryChanged ", queryChanged)
+    
 
     let urlToAppend;
     let pageCount = 1
 
-    if (nextUrl != null) {
-        urlToAppend = `https://api.shutterstock.com/v2/images/search?query=${query}&page=${pageCount}`
+    if (nextUrl === null) {
+        urlToAppend = `https://api.shutterstock.com/v2/images/search?query=${query}&page=1`
     } else {
-        pageCount++
+        pageCount = pageCount + 1
         urlToAppend = `https://api.shutterstock.com/v2/images/search?query=${query}&page=${pageCount}`
     }
 

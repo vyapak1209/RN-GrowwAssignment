@@ -25,13 +25,21 @@ export class ImageListView extends Component {
         })
 
         if (query != this.state.query) {
+            this.setState({
+                query
+            })
             this.refs.flatlist.scrollToOffset({ x: 0, y: 0, animated: true })
             this.props.fetchImages(query, null, QUERY_CHANGED)
         } else {
+            this.setState({
+                query
+            })
             this.props.fetchImages(query, null, null)
         }
 
     }
+
+
 
     componentDidUpdate() {
         if (this.props.spellCheck != null) {
