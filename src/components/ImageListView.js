@@ -66,6 +66,9 @@ export class ImageListView extends Component {
                         <Text style={{ margin: 20 }}>
                             Did you mean? <Text onPress={() => {
                                 this.props.fetchImages(this.props.spellCheck.spellchecked_query, null, QUERY_CHANGED)
+                                this.setState({
+                                    query: this.props.spellCheck.spellchecked_query
+                                })
                             }} style={{ color: '#0000EE', textDecorationLine: 'underline' }}>{this.props.spellCheck.spellchecked_query}</Text>
                         </Text>
                     </View> : <View />}
