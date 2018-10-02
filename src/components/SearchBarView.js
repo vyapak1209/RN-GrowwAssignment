@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
         // borderColor:'#aa3939',
         borderRadius: 7,
         padding: 10,
-        color: '#D46A6A'
+        color: 'gray'
     }
 })
