@@ -24,7 +24,10 @@ export class ImageListView extends Component {
             loading: true,
         })
 
-        if (query != this.state.query) {
+        
+        // if new query is different from previous query, scroll up and reload with QUERY_CHANGED else normal search
+        
+        if (query != this.state.query) {   
             this.setState({
                 query
             })
@@ -39,7 +42,8 @@ export class ImageListView extends Component {
 
     }
 
-
+    
+    // Set and reset spellchecked_query 
 
     componentDidUpdate() {
         if (this.props.spellCheck != null) {
@@ -61,6 +65,8 @@ export class ImageListView extends Component {
                     searchImages={this.searchImages.bind(this)}
                 />
 
+                // show/hide spell check prompt 
+
                 <View>
                     {(this.props.spellCheck != null && this.state.spellCheckedQuery != null) ? <View>
                         <Text style={{ margin: 20 }}>
@@ -74,6 +80,7 @@ export class ImageListView extends Component {
                     </View> : <View />}
                 </View>
 
+                // show/hide initial page prompt
                 <View>
                     {(!this.state.loading) ? <View style={{ marginTop: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                         <Image
@@ -86,14 +93,20 @@ export class ImageListView extends Component {
                     </View> : <View />}
                 </View>
 
+                // show/hide activity indicator
+
                 <View>
                     {(this.state.loading && this.props.images === null && this.props.error === null) ? <ActivityIndicator style={{ marginTop: 200 }} size="large" color="#aa3939" /> : <View />}
                 </View>
+                
+                // show/hide not understood prompt 
 
                 <View>
                     {(this.props.error) ? <View style={{ marginTop: 200 }}><Text style={{ fontSize: 20 }}>{this.props.error}</Text></View> : <View />}
                 </View>
 
+                // Fetched images
+                    
                 <FlatList
                     keyExtractor={(item, index) => index.toString()}
                     numColumns={2}
