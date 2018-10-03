@@ -1,6 +1,6 @@
 import { IMAGES_FETCHED, NEXT_URL, QUERY_CHANGED, NOT_FOUND, SPELL_CHECK } from './ActionsTypes'
 
-const USERPWD = "Basic MWEyYTgtMGM3NGEtMTM3ZmItMmUxNDEtY2RiM2UtMTE3NTE6ZTRmOTItZjQ5MTEtNjMwODEtOGEwMWItMmUzYTAtMjA4ZmI="
+const USERPWD = "Basic MWEyYTgtMGM3NGEtMTM3ZmItMmUxNDEtY2RiM2UtMTE3NTE6ZTRmOTItZjQ5MTEtNjMwODEtOGEwMWItMmUzYTAtMjA4ZmI="    // Base64 encoded access_token
 
 export const fetchImages = (query, nextUrl, queryChanged) => {
 
@@ -13,10 +13,10 @@ export const fetchImages = (query, nextUrl, queryChanged) => {
     let pageCount = 1
 
     if (nextUrl === null) {
-        urlToAppend = `https://api.shutterstock.com/v2/images/search?query=${query}&page=1`
+        urlToAppend = `https://api.shutterstock.com/v2/images/search?query=${query}&page=1`  // load first page if nextUrl is null
     } else {
-        pageCount = pageCount + 1
-        urlToAppend = `https://api.shutterstock.com/v2/images/search?query=${query}&page=${pageCount}`
+        pageCount = pageCount + 1  // incremnet page number if nextUrl is not null
+        urlToAppend = `https://api.shutterstock.com/v2/images/search?query=${query}&page=${pageCount}`  // update url to be appended with new page count
     }
 
     return (dispatch) => {
@@ -40,20 +40,20 @@ export const fetchImages = (query, nextUrl, queryChanged) => {
             .then((response) => {
                 console.log("Response ", response)
 
-                if(response.spellcheck_info != null) {
+                if(response.spellcheck_info != null) {     // Spellcheck action if spellcheck_info is not null
                     dispatch({
                         type: SPELL_CHECK,
                         payload: response.spellcheck_info
                     })
                 }
 
-                if (response.total_count === 0) {
+                if (response.total_count === 0) {   // if total_count = 0 ==> query is not understood
                     dispatch({
                         type: NOT_FOUND,
                         payload: "Hey! We didn't get you."
                     })
                 } else {
-                    if (nextUrl === null) {
+                    if (nextUrl === null) {       
                         if (queryChanged === null) {
                             dispatch({
                                 type: IMAGES_FETCHED,
