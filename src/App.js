@@ -19,7 +19,7 @@ export default class App extends Component {
     
 
     return (
-      <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+      <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}> // Apply redux-thunk as middleware for dispatching functions as actions
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <ImageListView/>
         </View>
